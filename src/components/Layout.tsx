@@ -1,4 +1,3 @@
-import * as React from 'react';
 import TopNav from './TopNav';
 import SideNav from './SideNav';
 import { Box } from '@mui/material';
@@ -8,7 +7,7 @@ function Layout() {
   return (
     <>
         <TopNav />
-        <Box>
+        <Box display="flex">
             <SideNav />
             <MainContent />
         </Box>
