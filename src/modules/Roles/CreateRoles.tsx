@@ -15,12 +15,11 @@ const MenuProps = {
   },
 };
 
-// 将 PERMISSIONS 转换为 { id, name } 数组
 const formatPermissions = () => {
   return Object.entries(PERMISSIONS).flatMap(([category, perms]) =>
     Object.entries(perms).map(([key, value]) => ({
-      id: value, // 权限字符串作为 id
-      name: `${category} - ${key}`, // 组合权限类别和名称
+      id: value,
+      name: `${category} - ${key}`,
     }))
   );
 };
@@ -38,7 +37,7 @@ export default function CreateRoles() {
 
     useEffect(() => {
         setLoading(true);
-        setPermissions(formatPermissions()); // 转换 PERMISSIONS
+        setPermissions(formatPermissions());
         setLoading(false);
     }, []);
 
@@ -55,7 +54,7 @@ export default function CreateRoles() {
 
         setRole({
             ...role,
-            permissions: selectedPermissions.map(p => p.id), // 只传递 id 数组
+            permissions: selectedPermissions.map(p => p.id),
         });
     };
 
@@ -65,7 +64,7 @@ export default function CreateRoles() {
 
         const formattedRole = {
             ...role,
-            permissions: role.permissions?.map((p: string) => p) || [], // 只传递 id 数组
+            permissions: role.permissions?.map((p: string) => p) || [],
         };
 
         try {

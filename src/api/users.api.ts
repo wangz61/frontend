@@ -17,13 +17,13 @@ export const createUser = async (user: any) => {
 };
 
 
-export const updateUser = async (id: string, user: any) => {
-    const response = await client.put(`/users/${id}`, user);
+export const updateUser = async (user: any) => {
+    const response = await client.put(`/users/update`, user);
     return response.data;
 };  
 
-export const deleteUser = async (id: string) => {
-    const response = await client.delete(`/users/${id}`);
+export const deleteUser = async (user: any) => {
+    const response = await client.delete(`/users/delete`, user);
     return response.data;
 };
 
