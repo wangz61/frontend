@@ -10,6 +10,7 @@ export type User = {
     name: string;
     email: string;
     roleId: string;
+    password: string;
 }
 
 export type Production = {
@@ -21,10 +22,11 @@ export type Production = {
 
 export type Order = {
     id: string;
-    userId: string;
-    productionId: string;
-    quantity: number;
+    name: string;
+    email: string;
+    createdAt: string;
     totalPrice: number;
+    productions: Production[];
 }
 
 export type Permission = {

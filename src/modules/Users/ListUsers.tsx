@@ -3,7 +3,7 @@ import { getUsers } from "../../api/users.api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { getRoles } from "../../api/roles.api";
 import { User, Role } from "../../types";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router";
 
 export default function ListUsers() {
@@ -25,7 +25,7 @@ export default function ListUsers() {
         fetchData();
     }, []);
     if (loading) {
-        return
+        return <Box display="flex" justifyContent="center" alignItems="center" height="70vh"><CircularProgress /></Box>
     }
 
     const columns: GridColDef[] = [
@@ -43,7 +43,7 @@ export default function ListUsers() {
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <h3>Users</h3>
                 <Button variant="contained" color="primary">
-                    <Link to="/users/edit" style={{ textDecoration: 'none', color: 'inherit' }}>Edit Users</Link>
+                    <Link to="/users/create" style={{ textDecoration: 'none', color: 'inherit' }}>Create User</Link>
                 </Button>
             </Box>
 

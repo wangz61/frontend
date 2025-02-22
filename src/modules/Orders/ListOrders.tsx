@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getOrders } from "../../api/orders.api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router";
 
 export default function ListOrders() {
@@ -20,7 +20,7 @@ export default function ListOrders() {
         fetchData();
     }, []);
     if (loading) {
-        return
+        return <Box display="flex" justifyContent="center" alignItems="center" height="70vh"><CircularProgress /></Box>
     }
 
     const columns: GridColDef[] = [
@@ -36,7 +36,7 @@ export default function ListOrders() {
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <h3>Orders</h3>
                 <Button variant="contained" color="primary">
-                    <Link to="/orders/edit" style={{ textDecoration: 'none', color: 'inherit' }}>Edit Orders</Link>
+                    <Link to="/orders/create" style={{ textDecoration: 'none', color: 'inherit' }}>Create Order</Link>
                 </Button>
             </Box>
             <DataGrid rows={data} columns={columns} disableRowSelectionOnClick />

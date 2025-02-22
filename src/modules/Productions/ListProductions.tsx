@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getProductions } from "../../api/productions.api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Production } from "../../types";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router";
 
 
@@ -16,13 +16,12 @@ export default function ListProductions() {
             setLoading(true);
             const data = await getProductions();
             setData(data);
-            console.log(data);
             setLoading(false);
         };
         fetchData();
     }, []);
     if (loading) {
-        return
+        return <Box display="flex" justifyContent="center" alignItems="center" height="70vh"><CircularProgress /></Box>
     }
 
     const columns: GridColDef[] = [
@@ -37,7 +36,7 @@ export default function ListProductions() {
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <h3>Productions</h3>
                 <Button variant="contained" color="primary">
-                    <Link to="/productions/edit" style={{ textDecoration: 'none', color: 'inherit' }}>Edit Productions</Link>
+                    <Link to="/productions/create" style={{ textDecoration: 'none', color: 'inherit' }}>Create Production</Link>
                 </Button>
             </Box>
             <DataGrid rows={data} columns={columns} disableRowSelectionOnClick />
