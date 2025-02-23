@@ -8,7 +8,6 @@ import ListRoles from './modules/Roles/ListRoles';
 import ListProductions from './modules/Productions/ListProductions';
 import ListOrders from './modules/Orders/ListOrders';
 import Login from './components/Login';
-import EditUsers from './modules/Users/EditUsers';
 import CreateUsers from './modules/Users/CreateUsers';
 import CreateRoles from './modules/Roles/CreateRoles';
 import CreateOrders from './modules/Orders/CreateOrders';
@@ -23,7 +22,6 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/users" element={<ListUsers />} />
           <Route path="/users/create" element={<CreateUsers />} />
-          <Route path="/users/edit" element={<EditUsers />} />
           <Route path="/roles" element={<ListRoles />} />
           <Route path="/roles/create" element={<CreateRoles />} />
           <Route path="/orders" element={<ListOrders />} />

@@ -1,26 +1,15 @@
-import { useEffect, useState } from "react";
-import { getProductions } from "../../api/productions.api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Production } from "../../types";
+import { getProductions } from "../../api/productions.api";
 import { Box, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router";
-
+import { useDataLoad } from "../../hooks/useFataLoad";
 
 export default function ListProductions() {
 
-    const [data, setData] = useState<Production[]>([]);
-    const [loading, setLoading] = useState(false);
+    const { data, isLoading } = useDataLoad(getProductions);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            const data = await getProductions();
-            setData(data);
-            setLoading(false);
-        };
-        fetchData();
-    }, []);
-    if (loading) {
+
+    if (isLoading) {
         return <Box display="flex" justifyContent="center" alignItems="center" height="70vh"><CircularProgress /></Box>
     }
 

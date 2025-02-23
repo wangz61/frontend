@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Typography, Toolbar } from '@mui/material';
 import { Outlet } from 'react-router';
 

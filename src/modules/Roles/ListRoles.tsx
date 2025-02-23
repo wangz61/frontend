@@ -1,26 +1,14 @@
-import { useEffect, useState } from "react";
-import { getRoles } from "../../api/roles.api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Role } from "../../types";
+import { getRoles } from "../../api/roles.api";
 import { Box, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router";
+import { useDataLoad } from "../../hooks/useFataLoad";
 
 export default function ListRoles() {
 
-    const [data, setData] = useState<Role[]>([]);
-    const [loading, setLoading] = useState(false);
+    const { data, isLoading } = useDataLoad(getRoles);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            const data = await getRoles();
-            setData(data);
-            console.log(data);
-            setLoading(false);
-        };
-        fetchData();
-    }, []);
-    if (loading) {
+    if (isLoading) {
         return <Box display="flex" justifyContent="center" alignItems="center" height="70vh"><CircularProgress /></Box>
     }
 

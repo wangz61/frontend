@@ -1,25 +1,14 @@
-import { useEffect, useState } from "react";
-import { getOrders } from "../../api/orders.api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { getOrders } from "../../api/orders.api";
 import { Box, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router";
+import { useDataLoad } from "../../hooks/useFataLoad";
 
 export default function ListOrders() {
 
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const { data, isLoading } = useDataLoad(getOrders);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            const data = await getOrders();
-            setData(data);
-            console.log(data);
-            setLoading(false);
-        };
-        fetchData();
-    }, []);
-    if (loading) {
+    if (isLoading) {
         return <Box display="flex" justifyContent="center" alignItems="center" height="70vh"><CircularProgress /></Box>
     }
 

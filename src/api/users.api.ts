@@ -22,8 +22,8 @@ export const updateUser = async (user: any) => {
     return response.data;
 };  
 
-export const deleteUser = async (user: any) => {
-    const response = await client.delete(`/users/delete`, user);
+export const deleteUser = async (id: string) => {
+    const response = await client.delete(`/users/delete`, { data: { id: id } });
     return response.data;
 };
 

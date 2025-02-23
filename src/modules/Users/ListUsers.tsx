@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUsers, updateUser } from "../../api/users.api";
+import { deleteUser, getUsers, updateUser } from "../../api/users.api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { getRoles } from "../../api/roles.api";
 import { User, Role } from "../../types";
@@ -13,8 +13,8 @@ export default function ListUsers() {
     const [loading, setLoading] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [editOpen, setEditOpen] = useState(false);
-
-
+    
+    
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -36,6 +36,26 @@ export default function ListUsers() {
         }
     };
 
+
+    const handleDelete = async () => {
+        if (!selectedUser?.id) {
+            alert("User ID is missing!");
+            return;
+        }
+    
+        try {
+            await deleteUser(selectedUser.id);
+            setData((prev) => prev.filter((user) => user.id !== selectedUser.id));
+            setEditOpen(false);
+            console.log("User deleted successfully!");
+        } catch (error) {
+            console.error("Failed to delete user:", error);
+            alert("Failed to delete user.");
+        }
+    };
+    
+    
+    
     const handleEditChange = (field: keyof User) => (event: React.ChangeEvent<HTMLInputElement>) => {
         if (selectedUser) {
             setSelectedUser({ ...selectedUser, [field]: event.target.value });
@@ -51,7 +71,7 @@ export default function ListUsers() {
                     email: selectedUser.email,
                     roleId: selectedUser.roleId,
                 });
-                setData((prev) => prev.map((user) => (user.id === selectedUser.id ? selectedUser : user))); // 更新表格数据
+                setData((prev) => prev.map((user) => (user.id === selectedUser.id ? selectedUser : user)));
                 setEditOpen(false);
             } catch (error) {
                 console.error("Failed to update user:", error);
@@ -93,25 +113,25 @@ export default function ListUsers() {
                         value={selectedUser?.name || ""}
                         onChange={handleEditChange("name")}
                         fullWidth
+                        sx={{ marginBottom: 2, marginTop: 2 }}
                     />
                     <TextField
                         label="Email"
                         value={selectedUser?.email || ""}
                         onChange={handleEditChange("email")}
                         fullWidth
-                    />
-                    <TextField
-                        label="Password"
-                        value={selectedUser?.password || ""}
-                        onChange={handleEditChange("password")}
-                        fullWidth
+                        sx={{ marginBottom: 2 }}
                     />
                     <TextField
                         label="Role"
                         value={selectedUser?.roleId || ""}
                         onChange={handleEditChange("roleId")}
                         fullWidth
+                        sx={{ marginBottom: 2 }}
                     />
+                    <form onSubmit={handleDelete}>
+                        <Button type="submit" color="secondary">Delete User</Button>
+                    </form>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setEditOpen(false)} color="secondary">Cancel</Button>
