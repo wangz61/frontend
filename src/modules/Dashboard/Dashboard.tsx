@@ -1,25 +1,18 @@
 import { BarChart } from "@mui/x-charts";
 import { useDataLoad } from "../../hooks/useDataLoad";
 import { getOrders } from "../../api/orders.api";
-import { CircularProgress } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Order } from "../../types";
 
 export default function Dashboard() {
 
     const { data: orders, isLoading } = useDataLoad(getOrders)
 
-
     if (isLoading) {
-        return <CircularProgress />
+        return <Box display="flex" justifyContent="center" alignItems="center" height="70vh">
+            <CircularProgress />
+        </Box>;
     }
-
-    // [order1, order2, order3, order4, order5, order6]
-
-    // {
-    //     '2024-01-01': [order1, order2],
-    //     '2024-01-02': [order3, order4],
-    //     '2024-01-03': [order5, order6],
-    // }
 
     const groupedOrders = orders?.reduce((acc: Record<string, Order[]>, order: Order) => {
         const dayStr: string = order.createdAt.split('T')[0]
