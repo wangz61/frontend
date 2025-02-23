@@ -2,7 +2,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { getProductions } from "../../api/productions.api";
 import { Box, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router";
-import { useDataLoad } from "../../hooks/useFataLoad";
+import { useDataLoad } from "../../hooks/useDataLoad";
 
 export default function ListProductions() {
 

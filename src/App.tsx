@@ -12,14 +12,18 @@ import CreateUsers from './modules/Users/CreateUsers';
 import CreateRoles from './modules/Roles/CreateRoles';
 import CreateOrders from './modules/Orders/CreateOrders';
 import CreateProductions from './modules/Productions/CreateProductions';
+import useInitialLoading from './hooks/useInitialLoading';
+
 function App() {
+  
+  useInitialLoading()
 
   return (
     <>
       <CssBaseline />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" index element={<Dashboard />} />
           <Route path="/users" element={<ListUsers />} />
           <Route path="/users/create" element={<CreateUsers />} />
           <Route path="/roles" element={<ListRoles />} />
@@ -31,7 +35,6 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
-      
     </>
   )
 }
